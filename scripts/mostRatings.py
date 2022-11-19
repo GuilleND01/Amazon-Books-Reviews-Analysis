@@ -29,7 +29,7 @@ dfRead = dfRead.drop(*set(colNames).symmetric_difference(set(final_colums)))
 
 # Para ver que se han borrado: dfRead.printSchema()
 
-# Agrupamos por el ID del producto y lo paso a una lista
+# Agrupamos por el ID del producto 
 dataRead = dfRead.groupBy("asin").agg({'overall': 'avg', 'reviewerID':'count'}).orderBy(col("count(reviewerID)").desc())
 
 # Creo un nuevo DF a partir de los N primeros resultados
