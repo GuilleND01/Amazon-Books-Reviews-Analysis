@@ -4,6 +4,7 @@ from pyspark.sql.functions import col
 import pyspark.sql.functions as func
 import sys
 
+
 conf = SparkConf().setMaster('local[*]').setAppName('mostRatings')
 sc = SparkContext(conf = conf)
 spark = SparkSession(sc)
@@ -41,9 +42,13 @@ dfReadBooks = spark.read.json("../dataset/metabooks.json")
 meta_columns = ["asin", "title"]
 booksColNames = dfReadBooks.schema.names
 dfReadBooks =  dfReadBooks.drop(*set(booksColNames).symmetric_difference(set(meta_columns)))\
-    .withColumnRenamed("title", "Title") 
+    .withColumnRenamed("title", "Title")
 
 # Join de los dos DF según id del producto. Vuelvo a reordenar, porque el join no mantiene el orden
 final_df = dfReadBooks.join(DFreadN, DFreadN.asin == dfReadBooks.asin, "right").drop("asin")\
     .withColumn("Average Rating", func.round(col("Average Rating"),2)).orderBy(col("Number of Reviews").desc())
 final_df.show(N,False)
+
+# Guardo en un directorio los resultados
+final_df.coalesce(1).write.options(header = 'True', delimiter = ',').csv("../results/" + str(N) + "_mostRatings")
+
