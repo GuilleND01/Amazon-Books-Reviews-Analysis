@@ -3,6 +3,7 @@ from pyspark.sql import SparkSession
 from pyspark.sql.functions import col
 import pyspark.sql.functions as func
 import sys
+import matplotlib.pyplot as plt 
 
 
 conf = SparkConf().setMaster('local[*]').setAppName('mostRatings')
@@ -29,7 +30,7 @@ dfRead = dfRead.drop(*set(colNames).symmetric_difference(set(final_colums)))
 
 # Para ver que se han borrado: dfRead.printSchema()
 
-# Agrupamos por el ID del producto 
+# Agrupamos por el ID del producto y lo paso a una lista
 dataRead = dfRead.groupBy("asin").agg({'overall': 'avg', 'reviewerID':'count'}).orderBy(col("count(reviewerID)").desc())
 
 # Creo un nuevo DF a partir de los N primeros resultados
@@ -47,8 +48,32 @@ dfReadBooks =  dfReadBooks.drop(*set(booksColNames).symmetric_difference(set(met
 # Join de los dos DF según id del producto. Vuelvo a reordenar, porque el join no mantiene el orden
 final_df = dfReadBooks.join(DFreadN, DFreadN.asin == dfReadBooks.asin, "right").drop("asin")\
     .withColumn("Average Rating", func.round(col("Average Rating"),2)).orderBy(col("Number of Reviews").desc())
-final_df.show(N,False)
 
-# Guardo en un directorio los resultados
-final_df.coalesce(1).write.options(header = 'True', delimiter = ',').csv("../results/" + str(N) + "_mostRatings")
+#final_df.show(N,False)
 
+final_df.coalesce(1).write.options(header = 'True', delimiter = ',').mode("overwrite").csv("../results/" + str(N) + "_mostRatings")
+
+# Procesamiento gráfico
+fig, ax = plt.subplots()
+
+# Paso a array los títulos y sus reviews
+titles = final_df.select(col("Title")).rdd.flatMap(lambda x: x).collect()
+counts =  final_df.select(col("Number of Reviews")).rdd.flatMap(lambda x: x).collect()
+rating = final_df.select(col("Average Rating")).rdd.flatMap(lambda x: x).collect()
+
+# Pinto las barras y añado arriba el count exacto
+barGraphic = ax.bar(titles, counts)
+ax.bar_label(barGraphic, counts)
+
+# Ahora añado el average rating dentro de la barra
+i = -1
+for bar in ax.patches:
+    i += 1
+    # Se centra según el ancho y alto de cada barra
+    ax.text(bar.get_x() + bar.get_width() / 2, bar.get_y() + bar.get_height() / 2,
+    rating[i], ha='center', color='w', weight='bold', size=10)
+
+ax.set_ylabel('NUMBER OF REVIEWS')
+ax.set_title('THE ' + str(N) + ' BOOKS WITH THE MOST RATINGS')
+
+plt.savefig('../results/' + str(N) + '_mostRatings.png')
