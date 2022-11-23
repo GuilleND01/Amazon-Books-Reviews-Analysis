@@ -10,8 +10,7 @@ conf = SparkConf().setMaster('local[*]').setAppName('mostRatings')
 sc = SparkContext(conf = conf)
 spark = SparkSession(sc)
 
-''' Listado de los N libros con más valoraciones, su número y la media. Las valoraciones
-son de usuarios diferentes, no considereamos dos valoraciones del mismo usuario '''
+''' Listado de los N libros con más valoraciones, su número y la media.  '''
 
 # spark-submit mostRatings.py N
 N = int(sys.argv[1])
