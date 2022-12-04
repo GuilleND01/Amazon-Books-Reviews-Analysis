@@ -5,22 +5,26 @@ import pyspark.sql.functions as func
 from pyspark.sql.types import *
 import matplotlib.pyplot as plt
 
+import time
+start_time = time.time()
 
 conf = SparkConf().setMaster('local[*]').setAppName('mostRatings')
+conf.set("spark.sql.shuffle.partitions",300)
+print(conf.get('spark.sql.shuffle.partitions'))
 sc = SparkContext(conf = conf)
 spark = SparkSession(sc)
 
-input_file1 = "../dataset/Books_5.json" #valoraciones
-input_file2 = "../dataset/meta_Books.json" #libros
+input_file1 = "../dataset/reviews_grande.json" #valoraciones
+input_file2 = "../dataset/metabooks.json" #libros
 
 
 #numero de argumentos que se le pasan al programa
-#num_args = len(sys.argv) # para lista de categorias bucle con esto para coger todas y al comprobar en el filter con todas ellas.
-#cat = []
-#for y in range(1,num_args):
-#    cat.append(sys.argv[y])
+num_args = len(sys.argv) # para lista de categorias bucle con esto para coger todas y al comprobar en el filter con todas ellas.
+cat = []
+for y in range(1,num_args):
+    cat.append(sys.argv[y])
 
-cat = ["Books", "Children's Books", "Arts Music & Photography"]
+#cat = ["Books", "Children's Books", "Arts Music & Photography"]
 
 #leemos los ficheros
 
@@ -41,8 +45,7 @@ avg1 = dfFilter.groupBy('title').agg({'overall': 'avg', 'reviewerID':'count'}).o
 avg1 = avg1.withColumnRenamed("avg(overall)", "rating") #renombramos la columna avg(overall) a avg
 avg1 = avg1.withColumnRenamed("count(reviewerID)", "vals") #renombramos la columna count(reviewerID) a count
 
-
-
 df_final = avg1.orderBy(col("rating").desc(), col("vals").desc()) #ordenamos por rating y por vals
 df_final.coalesce(1).write.options(header = 'True', delimiter = ',').mode("overwrite").csv("../results/bestBooksCat")
 
+print("--- %s seconds ---" % (time.time() - start_time))
