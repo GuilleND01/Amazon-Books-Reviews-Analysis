@@ -3,15 +3,6 @@ from pyspark.sql import SparkSession
 from pyspark.sql.functions import *
 import pyspark.sql.functions as func
 from pyspark.sql.types import *
-
-
-conf = SparkConf().setMaster('local[*]').setAppName('mostRatings')
-sc = SparkContext(conf = conf)
-from pyspark import SparkConf, SparkContext
-from pyspark.sql import SparkSession
-from pyspark.sql.functions import *
-import pyspark.sql.functions as func
-from pyspark.sql.types import *
 import matplotlib.pyplot as plt
 
 
@@ -24,12 +15,12 @@ input_file2 = "./dataset/meta_Books.json" #libros
 
 
 #numero de argumentos que se le pasan al programa
-num_args = len(sys.argv) # para lista de categorias bucle con esto para coger todas y al comprobar en el filter con todas ellas.
-cat = []
-for y in range(1,num_args):
-    cat.append(sys.argv[y])
+#num_args = len(sys.argv) # para lista de categorias bucle con esto para coger todas y al comprobar en el filter con todas ellas.
+#cat = []
+#for y in range(1,num_args):
+#    cat.append(sys.argv[y])
 
-#cat = ["Books", "Children's Books", "Arts Music & Photography"]
+cat = ["Books", "Children's Books", "Arts Music & Photography"]
 
 #leemos los ficheros
 
@@ -53,5 +44,5 @@ avg1 = avg1.withColumnRenamed("count(reviewerID)", "vals") #renombramos la colum
 
 
 df_final = avg1.orderBy(col("rating").desc(), col("vals").desc()) #ordenamos por rating y por vals
-df_final.show(truncate = 1000) #mostramos el resultado
+df_final.coalesce(1).write.options(header = 'True', delimiter = ',').mode("overwrite").csv("../results/bestBooksCat")
 
