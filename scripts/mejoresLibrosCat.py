@@ -10,8 +10,8 @@ conf = SparkConf().setMaster('local[*]').setAppName('mostRatings')
 sc = SparkContext(conf = conf)
 spark = SparkSession(sc)
 
-input_file1 = "./dataset/Books_5.json" #valoraciones
-input_file2 = "./dataset/meta_Books.json" #libros
+input_file1 = "../dataset/Books_5.json" #valoraciones
+input_file2 = "../dataset/meta_Books.json" #libros
 
 
 #numero de argumentos que se le pasan al programa
