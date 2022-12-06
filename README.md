@@ -1,6 +1,9 @@
 # Amazon-Books-Reviews-Analysis
 
 ## 1. Introducción
+Contexto
+Solución
+Necesidad de big data
 ## 2. Modelo de datos y origen
 Nuestros datos han sido obtenidos de dos datasets. El primero de ellos contiene información sobre las **reviews de los usuarios**, incluyendo la puntuación que se ha dado al libro, el nombre de usuario de la persona, su identificador, el identificador del producto, la review completa y un resumen, el id del producto que se ha valorado, etc. El segundo contiene **metadatos** de cada uno de los **libros**: título, precio, categorías a las que pertenece dentro de Amazon, índice de ventas, descripción, productos comprados parecidos a este, etc.
 
