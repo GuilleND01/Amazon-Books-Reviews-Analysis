@@ -8,7 +8,7 @@ Los ficheros son los siguientes:
 - **reviews.json**, que comprende 27,164,983 reviews entre 1996 y 2018 (**21GB**)
 - **metabooks.json**, con información de 2,935,525 libros (**4GB**)
 
-En la carpeta [datasets](/datasets) de este repositorio se encuentra una versión reducida de ambos archivos debido a las limitaciones de la plataforma. Los datos han sido obtenidos de la web de Amazon por Jianmo Ni y se pueden visitar y descargar desde [aquí](https://nijianmo.github.io/amazon/index.html). 
+En la carpeta [datasets](/dataset) de este repositorio se encuentra una versión reducida de ambos archivos debido a las limitaciones de la plataforma. Los datos han sido obtenidos de la web de Amazon por Jianmo Ni y se pueden visitar y descargar desde [aquí](https://nijianmo.github.io/amazon/index.html). 
 
 ## 3. Descripción técnica
 ## 4. Resultados
