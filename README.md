@@ -36,8 +36,9 @@ Para el desarrollo del estudio nos hemos ayudado de las siguientes herramientas 
 3. **Python**, como lenguaje de programación de los scrips presentados como solución.
 4. **Matplotlib**, como librería de Python de creacción de gráficos de dos dimensiones para presentar los resultados.
 5. **WordCloud**, como librería de Python de creacción de nubes de palabras (representación visual de las palabras que conforman un texto, en donde el tamaño es mayor para las palabras que aparecen con más frecuencia)
-6. **PySpark**, como interfaz de Apache Spark en Python, para realizar operaciones sobre los datasets y hacer uso de una programación funcional paralela 
-7. **Cloudaccess** ?
+6. **PySpark**, como interfaz de Apache Spark en Python, para realizar operaciones sobre los datasets y hacer uso de una programación funcional paralela.
+7. **Excel**, para la representación gráfica de los resultados obtenidos en el análisis de rendimiento.
+8. **Cloudaccess** ?
 ## 4. Resultados
 ## 5. Conclusiones
 
