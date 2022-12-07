@@ -39,6 +39,22 @@ Para el desarrollo del estudio nos hemos ayudado de las siguientes herramientas 
 6. **PySpark**, como interfaz de Apache Spark en Python, para realizar operaciones sobre los datasets y hacer uso de una programación funcional paralela.
 7. **Excel**, para la representación gráfica de los resultados obtenidos en el análisis de rendimiento.
 8. **Cloudaccess** ?
+
+### Probar nuestro estudio
+#### En local
+Se pasa a detallar los pasos para la reproducción de nuestro estudio en una instancia de Google Cloud o en un equipo Linux.
+1. **Instalación de Java**<br />
+ ```
+ sudo apt install default-jre
+ java -version
+ ```
+2. **Instalación de Spark**
+```
+curl -O https://archive.apache.org/dist/spark/spark-3.3.1/spark-3.3.1-bin-hadoop3.tgz
+tar xvf spark-3.3.1-bin-hadoop3.tgz
+sudo mv spark-3.3.1-bin-hadoop3 /usr/local/spark
+```
+#### En Google Cloud
 ## 4. Resultados
 ## 5. Conclusiones
 
