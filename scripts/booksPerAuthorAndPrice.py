@@ -41,6 +41,7 @@ author = cat[2]
 for x in range(3,len(cat)):
 	author = author + " " + cat[x]
 
+authorComillas = '"' + author + '"'
 #Leo los datos de los libros
 input_file = "../dataset/meta_Books.json" #libros
 
@@ -48,14 +49,12 @@ df = spark.read.json(input_file)
 
 #Selecciono las columnas donde el autor es el que busco
 df = df.select('brand', 'title', func.translate(func.col("price"), "$", "").alias("Precio"))\
-		.where(df['brand'] == author)
+		.where((df['brand'] == author) | (df['brand'] == authorComillas))
 
 #Filtro los resultados segú el rango de precios seleccionado
 df = df.where(df["Precio"].between(precio1, precio2))
 
 
-df = df.groupby(col("Title")).agg(avg("Precio")).orderBy("avg(Precio)", ascending=False)
+df = df.groupby(col("brand"),col("Title")).agg(avg("Precio")).orderBy("avg(Precio)", ascending=False)
 
-df.show()
-
-dfCount.coalesce(1).write.options(header = 'True', delimiter = ',').mode("overwrite").csv("../results/booksPerAuthorAndPrice.csv")
+df.coalesce(1).write.options(header = 'True', delimiter = ',').mode("overwrite").csv("../results/booksPerAuthorAndPrice.csv")
