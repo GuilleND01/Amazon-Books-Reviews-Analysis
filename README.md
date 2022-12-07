@@ -1,5 +1,6 @@
 # Amazon-Books-Reviews-Analysis
 
+[Web](https://booksreviews.cloudaccess.host/)
 ## 1. Introducción
 Cada día en Amazon se venden miles de productos, entre los que por suspuesto están los **libros**. Las ventas de libros en Amazon supusieron un 15% de los ingresos totales durante 2021. O lo que es lo mismo, un 15% de los 469.822 millones de dólares que facturó la plataforma el pasado año. Además, durante los últimos años más editoriales y autores han optado por las facilidades que esta plataforma ofrece.
 
@@ -19,16 +20,21 @@ En la carpeta [datasets](/dataset) de este repositorio se encuentra una versión
 ## 3. Descripción técnica
 ### Software
 Se han desarrollado los siguientes scripts en Python y se pasa a hacer una breve descripción de ellos. Pulsando en el nombre de este se puede ver el código, alojado en la carpeta [scripts](/scripts).
-- [mostRatings.py](/scripts/mostRatings.py): se obtiene un gráfico de barras con los N libros con más valoraciones en Amazon, su número y su media de rating. Esta información se guarda también en un CSV. 
-- [formatCategory.py](/scripts/formatCategory.py): se obtiene un gráfico circular con los formatos de lectura más frecuentes para una categoría dada y sus porcentajes. En este se observarán los cinco formatos más leídos y el resto quedarán agrupados sobre la categoria allOtherCategories. Además, se generará un CSV con la cuenta de veces que un libro de la categoría se ha leido en ese formato. Se podrán ver todos aquellos formatos que no aparecían en el gráfico.
-- [ratingsEvolution.py](/scripts/ratingsEvolution.py):
-- [outstandingAuthors.py](/scripts/outstandingAuthors.py):
-- [bestBooksCat.py](/scripts/bestBooksCat.py):
-- [recommendedOrderedByRatings.py](/scripts/recommendedOrderedByRatings.py)
-
-
+- [**mostRatings.py**](/scripts/mostRatings.py): se obtiene un gráfico de barras con los N libros con más valoraciones en Amazon, su número y su media de rating. Esta información se guarda también en un CSV. 
+- [**formatCategory.py**](/scripts/formatCategory.py): se obtiene un gráfico circular con los formatos de lectura más frecuentes para una categoría dada y sus porcentajes. En este se observarán los cinco formatos más leídos y el resto quedarán agrupados sobre la categoria allOtherCategories. Además, se generará un CSV con la cuenta de veces que un libro de la categoría se ha leido en ese formato. Se podrán ver todos aquellos formatos que no aparecían en el gráfico.
+- [**ratingsEvolution.py**](/scripts/ratingsEvolution.py):
+- [**outstandingAuthors.py**](/scripts/outstandingAuthors.py):
+- [**bestBooksCat.py**](/scripts/bestBooksCat.py):
+- [**recommendedOrderedByRatings.py**](/scripts/recommendedOrderedByRatings.py)
 
 ### Herramientas y entorno de trabajo
+Para el desarrollo del estudio nos hemos ayudado de las siguientes herramientas y tecnologías:
+1. **Google Cloud**, para la ejecución de los scripts, almacenamiento y gestión de datos.
+2. **GitHub**, para la gestíon de ficheros y su control de versiones. 
+3. **Python**, como lenguaje de programación de los scrips presentados como solución.
+4. **Matplotlib**, como librería de Python de creacción de gráficos de dos dimensiones para presentar los resultados.
+5. **WordCloud**, como librería de Python de creacción de nubes de palabras (representación visual de las palabras que conforman un texto, en donde el tamaño es mayor para las palabras que aparecen con más frecuencia)
+6. **Cloudaccess**
 ## 4. Resultados
 ## 5. Conclusiones
 
