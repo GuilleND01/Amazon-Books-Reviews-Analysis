@@ -24,7 +24,7 @@ Se han desarrollado los siguientes scripts en Python y se pasa a hacer una breve
 - [ratingsEvolution.py](/scripts/ratingsEvolution.py):
 - [outstandingAuthors.py](/scripts/outstandingAuthors.py):
 - [bestBooksCat.py](/scripts/bestBooksCat.py):
-- [recommendedOrderedByRatings.py]((scripts/recommendedOrderedByRatings.py)
+- [recommendedOrderedByRatings.py](/scripts/recommendedOrderedByRatings.py)
 
 
 
