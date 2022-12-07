@@ -20,7 +20,7 @@ En la carpeta [datasets](/dataset) de este repositorio se encuentra una versión
 ## 3. Descripción técnica
 ### Software
 Se han desarrollado los siguientes scripts en Python y se pasa a hacer una breve descripción de ellos. Pulsando en el nombre de este se puede ver el código, alojado en la carpeta [scripts](/scripts).
-- [**mostRatings.py**](/scripts/mostRatings.py): se obtiene un gráfico de barras con los N libros con más valoraciones en Amazon, su número y su media de rating. Esta información se guarda también en un CSV. 
+- [**mostRatings.py**](/scripts/mostRatings.py): se obtiene un gráfico de barras con los N libros con más valoraciones, su número y su media de rating. Esta información se guarda también en un CSV. 
 - [**formatCategory.py**](/scripts/formatCategory.py): se obtiene un gráfico circular con los formatos de lectura más frecuentes para una categoría dada y sus porcentajes. En este se observarán los cinco formatos más leídos y el resto quedarán agrupados sobre la categoria allOtherCategories. Además, se generará un CSV con la cuenta de veces que un libro de la categoría se ha leido en ese formato. Se podrán ver todos aquellos formatos que no aparecían en el gráfico.
 - [**ratingsEvolution.py**](/scripts/ratingsEvolution.py):
 - [**outstandingAuthors.py**](/scripts/outstandingAuthors.py):
