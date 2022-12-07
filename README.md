@@ -17,6 +17,14 @@ Los ficheros son los siguientes:
 En la carpeta [datasets](/dataset) de este repositorio se encuentra una versión reducida de ambos archivos debido a las limitaciones de la plataforma. Los datos han sido obtenidos de la web de Amazon por Jianmo Ni y se pueden visitar y descargar desde [aquí](https://nijianmo.github.io/amazon/index.html). 
 
 ## 3. Descripción técnica
+### Software
+Se han desarrollado los siguientes scripts en Python y se pasa a hacer una breve descripción de ellos. Pulsando en el nombre de este se puede ver el código, alojado en la carpeta [scripts](/scripts).
+- [mostRatings.py](/scripts/mostRatings.py): 
+- [mostRatings.py](/scripts/formatCategory.py):
+- [mostRatings.py](/scripts/ratingsEvolution.py):
+
+
+### Herramientas y entorno de trabajo
 ## 4. Resultados
 ## 5. Conclusiones
 
