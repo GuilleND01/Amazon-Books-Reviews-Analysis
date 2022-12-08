@@ -11,8 +11,8 @@ conf = SparkConf().setMaster('local[*]').setAppName('mostRatings')
 sc = SparkContext(conf = conf)
 spark = SparkSession(sc)
 
-input_file1 = "../dataset/Books_5.json" #valoraciones
-input_file2 = "../dataset/meta_Books.json" #libros
+input_file1 = "../dataset/reviews_grande.json" #valoraciones
+input_file2 = "../dataset/metabooks.json" #libros
 
 dfVal = spark.read.json(input_file1)
 dfLib = spark.read.json(input_file2)
@@ -32,3 +32,4 @@ dfCount = dfCount.withColumnRenamed("sum(vals)", "vals")
 dfCount = dfCount.orderBy(col("vals").desc()).toDF('category', 'vals')
 
 dfCount.coalesce(1).write.options(header = 'True', delimiter = ',').mode("overwrite").csv("../results/mostPopularCategories")
+
