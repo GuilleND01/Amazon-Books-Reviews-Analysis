@@ -25,7 +25,7 @@ Se han desarrollado los siguientes scripts en Python y se pasa a hacer una breve
 - [**ratingsEvolution.py**](/scripts/ratingsEvolution.py):
 - [**outstandingAuthors.py**](/scripts/outstandingAuthors.py):
 - [**bestBooksCat.py**](/scripts/bestBooksCat.py):
-- [**recommendedOrderedByRatings.py**](/scripts/recommendedOrderedByRatings.py):
+- [**recommendedOrderedByRatings.py**](/scripts/recommendedOrderedByRatings.py): Dado un libro muestra los libros recomendados a comprar ordenados por su rating. Esta información se guarda en un CSV. 
 
 Destacar que en algunos de estos scripts ha sido necesario contemplar algunos errores que los datasets contenían. En metabooks.json algunas categorías aparecían de la siguiente manera: ["Books", "Education &amp: Reference"], cuando debería ser Education & Reference. Tambíen, el nombre del autor (columna _brand_) en ocaciones contiene: "Visit Amazon's Sylvie Raulet Page", cuando debería ser Sylvie Raulet. Estos errores se han gestionado en el script, pues se ha decidido no hacer un preprocesado y filtrado del dataset.  
 
