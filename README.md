@@ -41,7 +41,6 @@ Para el desarrollo del estudio nos hemos ayudado de las siguientes herramientas 
 8. **WordPress**, para la página web.
 
 ### Probar nuestro estudio
-#### En local
 Se pasa a detallar los pasos para la reproducción de nuestro estudio en una instancia de Google Cloud o en un equipo Ubuntu.
 1. **Instalación de Java**<br />
  ```
@@ -80,8 +79,6 @@ $ spark-submit mostRatings.py 4
 ```
 Los resultados aparecerán en la carpeta /results 
 <br />
-#### En Google Cloud
-
 ## 4. Resultados
 Se pueden encontrar algunos resultados del estudio en la carpeta [results](/results), aunque en la [web](https://booksreviews.cloudaccess.host/) se explican estos con más detalle.
 ## 5. Conclusiones
