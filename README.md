@@ -20,12 +20,12 @@ En la carpeta [datasets](/dataset) de este repositorio se encuentra una versión
 ## 3. Descripción técnica
 ### Software
 Se han desarrollado los siguientes scripts en Python y se pasa a hacer una breve descripción de ellos. Pulsando en el nombre de este se puede ver el código, alojado en la carpeta [scripts](/scripts).
-- [**mostRatings.py**](/scripts/mostRatings.py): se obtiene un gráfico de barras con los N libros con más valoraciones, su número y su media de rating. Esta información se guarda también en un CSV. 
-- [**formatCategory.py**](/scripts/formatCategory.py): se obtiene un gráfico circular con los formatos de lectura más frecuentes para una categoría dada y sus porcentajes. En este se observarán los cinco formatos más leídos y el resto quedarán agrupados sobre la categoria allOtherCategories. Además, se generará un CSV con la cuenta de veces que un libro de la categoría se ha leido en ese formato. Se podrán ver todos aquellos formatos que no aparecían en el gráfico.
+- [**mostRatings.py**](/scripts/mostRatings.py): se obtiene un gráfico de barras con los N libros con más valoraciones, su número y su media de rating. Esta información se guarda también en un CSV. Ej: _spark-submit mostRatings.py N_
+- [**formatCategory.py**](/scripts/formatCategory.py): se obtiene un gráfico circular con los formatos de lectura más frecuentes para una categoría dada y sus porcentajes. En este se observarán los cinco formatos más leídos y el resto quedarán agrupados sobre la categoria allOtherCategories. Además, se generará un CSV con la cuenta de veces que un libro de la categoría se ha leido en ese formato. Se podrán ver todos aquellos formatos que no aparecían en el gráfico. Ej: _spark-submit formatCategory.py category_
 - [**ratingsEvolution.py**](/scripts/ratingsEvolution.py):
 - [**outstandingAuthors.py**](/scripts/outstandingAuthors.py):
 - [**bestBooksCat.py**](/scripts/bestBooksCat.py):
-- [**recommendedOrderedByRatings.py**](/scripts/recommendedOrderedByRatings.py): Dado un libro muestra los libros recomendados a comprar ordenados por su rating. Esta información se guarda en un CSV. 
+- [**recommendedOrderedByRatings.py**](/scripts/recommendedOrderedByRatings.py):
 
 Destacar que en algunos de estos scripts ha sido necesario contemplar algunos errores que los datasets contenían. En metabooks.json algunas categorías aparecían de la siguiente manera: ["Books", "Education &amp: Reference"], cuando debería ser Education & Reference. Tambíen, el nombre del autor (columna _brand_) en ocaciones contiene: "Visit Amazon's Sylvie Raulet Page", cuando debería ser Sylvie Raulet. Estos errores se han gestionado en el script, pues se ha decidido no hacer un preprocesado y filtrado del dataset.  
 
@@ -42,19 +42,46 @@ Para el desarrollo del estudio nos hemos ayudado de las siguientes herramientas 
 
 ### Probar nuestro estudio
 #### En local
-Se pasa a detallar los pasos para la reproducción de nuestro estudio en una instancia de Google Cloud o en un equipo Linux.
+Se pasa a detallar los pasos para la reproducción de nuestro estudio en una instancia de Google Cloud o en un equipo Ubuntu.
 1. **Instalación de Java**<br />
  ```
- sudo apt install default-jre
- java -version
+ $ sudo apt install default-jre
+ $ java -version
  ```
-2. **Instalación de Spark**
+2. **Instalación de Python**
 ```
-curl -O https://archive.apache.org/dist/spark/spark-3.3.1/spark-3.3.1-bin-hadoop3.tgz
-tar xvf spark-3.3.1-bin-hadoop3.tgz
-sudo mv spark-3.3.1-bin-hadoop3 /usr/local/spark
+$ sudo apt-get update
+$ sudo apt-get install python3.6
 ```
+3. **Instalación de Spark**
+```
+$ curl -O https://archive.apache.org/dist/spark/spark-3.3.1/spark-3.3.1-bin-hadoop3.tgz
+$ tar xvf spark-3.3.1-bin-hadoop3.tgz
+$ sudo mv spark-3.3.1-bin-hadoop3 /usr/local/spark
+```
+4. **Configuración del entorno** <br />
+Se añade /usr/local/spark/bin al PATH en el fichero ~/.profile. Después de actualiza el PATH en la sesión actual.
+```
+$ echo 'PATH="$PATH:/usr/local/spark/bin"' >> ~/.profile
+$ source ~/.profile
+```
+5. **Instalación de librerias**
+```
+$ sudo apt install python3-pip
+$ pip install wordcloud
+$ sudo apt-get install python3-matplotlib
+```
+6. **Descarga de archivos** <br />
+Se podrán crear las carpetas [scripts](/scripts), [dataset](/dataset) y [results](/results) de manera manual y copiar los datasets y los scripts en las correspondientes, aunque también es posible descargar este repositorio y descomprimirlo, desplegando el botón _<> Code_ y marcando _Download ZIP_. Tener en cuenta que la carpeta results tendrá algunos resultados ya.
+7. **Ejecución de scripts** <br />
+Colocados en la carpeta /scripts damos la orden a Spark de ejecución del programa. Los argumentos pasados dependerán del script y se han detallado más arriba.
+```
+$ spark-submit mostRatings.py 4
+```
+Los resultados aparecerán en la carpeta /results 
+<br />
 #### En Google Cloud
+
 ## 4. Resultados
 ## 5. Conclusiones
 
