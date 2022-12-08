@@ -18,7 +18,7 @@ cat = sys.argv[1]
 cat1 = cat.replace('&', '&amp;')
 
 # Lectura del archivo reviews
-dfReviews = spark.read.json("../dataset/reviews_grande.json")
+dfReviews = spark.read.json("../dataset/reviews.json")
 
 # Lectura del archivo metabooks
 dfReadBooks = spark.read.json("../dataset/metabooks.json")
