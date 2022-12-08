@@ -80,7 +80,7 @@ $ spark-submit mostRatings.py 4
 Los resultados aparecerán en la carpeta /results 
 <br />
 ## 4. Resultados
-Se pueden encontrar algunos resultados del estudio en la carpeta [results](/results), aunque en la [web](https://booksreviews.cloudaccess.host/) se explican estos con más detalle.
+Se pueden encontrar algunos resultados del estudio en la carpeta [results](/results) de este repositorio, aunque en la [web](https://booksreviews.cloudaccess.host/) se explican estos con más detalle.
 ## 5. Conclusiones
 
  
