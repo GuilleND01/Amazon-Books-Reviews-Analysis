@@ -83,5 +83,5 @@ Los resultados aparecerán en la carpeta /results
 Se pueden encontrar algunos resultados del estudio en la carpeta [results](/results) de este repositorio, aunque en la [web](https://booksreviews.cloudaccess.host/) se explican estos con más detalle.
 ### Rendimiento
 ## 5. Conclusiones
-
+Las conclusiones finales del estudio, objetivos alcanzados, aprendizaje y posibles extensiones futuras del trabajo se recogen también en la [web](https://booksreviews.cloudaccess.host/)
  
