@@ -17,7 +17,7 @@ son de usuarios diferentes, no considereamos dos valoraciones del mismo usuario 
 N = int(sys.argv[1])
 
 # Lectura del archivo reviews
-dfRead = spark.read.json("../dataset/reviews_grande.json")
+dfRead = spark.read.json("../dataset/reviews.json")
 
 # Borro aquellas columnas que no voy a necesitar:
 
