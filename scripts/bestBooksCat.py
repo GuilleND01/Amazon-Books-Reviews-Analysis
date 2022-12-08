@@ -8,15 +8,14 @@ import matplotlib.pyplot as plt
 import time
 start_time = time.time()
 
-conf = SparkConf().setMaster('local[*]').setAppName('mostRatings')
+conf = SparkConf().setMaster('local[16]').setAppName('mostRatings')
 conf.set("spark.sql.shuffle.partitions",300)
-print(conf.get('spark.sql.shuffle.partitions'))
+# mostrar el spark.master
 sc = SparkContext(conf = conf)
 spark = SparkSession(sc)
 
 input_file1 = "../dataset/reviews_grande.json" #valoraciones
 input_file2 = "../dataset/metabooks.json" #libros
-
 
 #numero de argumentos que se le pasan al programa
 num_args = len(sys.argv) # para lista de categorias bucle con esto para coger todas y al comprobar en el filter con todas ellas.
