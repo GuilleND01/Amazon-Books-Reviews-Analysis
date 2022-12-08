@@ -83,6 +83,7 @@ Los resultados aparecerán en la carpeta /results
 #### En Google Cloud
 
 ## 4. Resultados
+Se pueden encontrar algunos resultados del estudio en la carpeta [results](/results), aunque en la [web](https://booksreviews.cloudaccess.host/) se explican estos con más detalle.
 ## 5. Conclusiones
 
  
