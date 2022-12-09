@@ -25,8 +25,8 @@ Se han desarrollado los siguientes scripts en Python y se pasa a hacer una breve
 - [**booksPerAuthorAndPrice.py**](/scripts/booksPerAuthorAndPrice.py): El usuario introduce dos precios y el nombre de un autor y el programa devuelve los libros del autor introducido que tengan un precio comprendido entre el primer numero y el segundo. 
 ej: spark-submit booksPerAuthorAndPrice 10 40 John Ruskin
 - [**booksPriceEvolution.py**](/scripts/booksPriceEvolution.py):
-- [**ratingsEvolution.py**](/scripts/ratingsEvolution.py): mediante la introducción de una categoría concreta, el programa muestra un gráfico con la puntuación media que han recibido los libros de ese género en cada uno de los años.
-- [**outstandingAuthors.py**](/scripts/outstandingAuthors.py): muestra los autores que tienen una mejor puntuación media en sus obras y a igualdad de puntuaciones se tiene en cuenta el número de valoraciones realizadas.
+- [**ratingsEvolution.py**](/scripts/ratingsEvolution.py): mediante la introducción de una categoría concreta, el programa muestra un gráfico con la puntuación media que han recibido los libros de ese género en cada uno de los años. Ej: _spark-submit ratingsEvolution.py 'Education & Reference'_
+- [**outstandingAuthors.py**](/scripts/outstandingAuthors.py): muestra los autores que tienen una mejor puntuación media en sus obras y a igualdad de puntuaciones se tiene en cuenta el número de valoraciones realizadas. Ej: _spark-submit outstandingAuthors.py Paranormal_
 - [**bestBooksCat.py**](/scripts/bestBooksCat.py):
 - [**recommendedOrderedByRatings.py**](/scripts/recommendedOrderedByRatings.py):
 
