@@ -13,14 +13,11 @@ sc = SparkContext(conf = conf)
 spark = SparkSession(sc)
 
 '''
-	Libros de autores buscados segun el rango de precio
-		1er argumento Rango Bajo PRECIO
-		2do argumento Rango Alto PRECIO
-		3er en adelante argumentos NOMBRE AUTOR
+	Precio de todos los libros a lo largo de un tiempo 
 '''
 
 ##IMPORTANTE: 
-#Ejemplo de entrada:	spark-submit .\booksPerAuthorAndPrice.py 10 40 John Ruskin
+#Ejemplo de entrada:	spark-submit .\booksPriceEvolution.py 2018 2019
 
 #numero de argumentos que se le pasan al programa
 num_args = len(sys.argv) # para lista de categorias bucle con esto para coger todas y al comprobar en el filter con todas ellas.
@@ -28,33 +25,65 @@ cat = []
 for y in range(1,num_args):
     cat.append(sys.argv[y])
 
-#author = "['Fiona Cownie']"
-precio1 = cat[0]
-precio2 = cat[1]
+#Fecha en formato dia-mes-año
+fecha1 = cat[0]
+fecha2 = cat[1]
 
-precio1 = int(precio1)
-precio2 = int(precio2)
-
-
-#EL nombre del autor esta entre [''] en el dataframe asique se lo añado a la busqueda del usuario
-author = cat[2]
-for x in range(3,len(cat)):
-	author = author + " " + cat[x]
+fecha1 = int(fecha1)
+fecha2 = int(fecha2)
 
 #Leo los datos de los libros
-input_file = "../dataset/meta_Books.json" #libros
+input_file1 = "../dataset/meta_Books.json" #libros
+input_file2 = "../dataset/Books_5.json" #reviews
 
-df = spark.read.json(input_file)
+df = spark.read.json(input_file1)
+df2 = spark.read.json(input_file2)
 
-#Selecciono las columnas donde el autor es el que busco
-df = df.select(col('brand').alias("Autor"), col('title').alias("Titulo"), func.translate(func.col("price"), "$", "").alias("Precio"))\
-		.where((df['brand'] == author) | df['brand'].contains(author))
+#Junto los dos dataframes por titulo
+df = df.join(df2, df.asin == df2.asin, how = 'inner')
 
-#Filtro los resultados segú el rango de precios seleccionado
-df = df.where(df["Precio"].between(precio1, precio2))
+#Selecciono los libros, la fecha de la review de ese libro y el precio de ese libro
+df = df.select(df["title"], df["reviewTime"], df["price"])
 
-df = df.groupby(col("Autor"),col("Titulo")).agg(avg("Precio").alias("PreciO")).orderBy("PreciO", ascending=False)
+#Cogo los años dentro de la reviewTime porque tiene el formato "dd mm, yyyy"
+df = df.withColumn('year', col('reviewTime').substr(6, 10))
+
+#Le quito el $ a los precios, y la coma y los espacios a los años
+df = df.select(df["title"], func.translate(func.col("price"), "$", "").alias("Precio"), func.translate(func.col("year"), ",", "").alias("Year"))
+df = df.withColumn("Year", func.translate(func.col("Year"), " ", ""))
+df = df.withColumn("Year", df["Year"].cast(IntegerType()))
+
+#Asumo que el año en el que sale el libro es el año que mas reviews tiene
+#calculo la moda de la fecha de la review por año y la media de sus precios
+df = df.groupby("title").agg(func.avg("Year"), func.avg("Precio"))
+df = df.withColumnRenamed("avg(Year)","Year")
+df = df.withColumnRenamed("avg(Precio)","Precio")
+
+df = df.withColumn('Year', col('Year').substr(0, 4).cast(IntegerType()))
+
+
+
+#quitamos las columnas null
+df = df.filter(df["Precio"].isNotNull())
+df = df.withColumn('Precio', col('Precio').substr(0, 4))
+
+#agrupo por año los precios 
+df = df.groupby("Year").agg(func.avg("Precio"))
+
+#Cambio un poco el nombre de las columnas y el numero de decimales
+df = df.withColumnRenamed("avg(Precio)","Precio")
+df = df.withColumn('Precio', col('Precio').substr(0, 4))
+
+#Filto por los años que me interesan
+#df = df.filter(df["Year"]).between(fecha1, fecha2)
+
+#Ordeno por año
+df = df.orderBy("Year", ascending = True)
 
 df.show()
 
-df.coalesce(1).write.options(header = 'True', delimiter = ',').mode("overwrite").csv("../results/booksPerAuthorAndPrice.csv")
+#df = df.filter(df["Year"]).between(fecha1, fecha2)
+
+#df.show()
+
+df.coalesce(1).write.options(header = 'True', delimiter = ',').mode("overwrite").csv("../results/booksPriceEvolution.csv")
