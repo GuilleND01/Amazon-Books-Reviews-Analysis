@@ -35,26 +35,25 @@ precio2 = cat[1]
 precio1 = int(precio1)
 precio2 = int(precio2)
 
-
 #EL nombre del autor esta entre [''] en el dataframe asique se lo añado a la busqueda del usuario
 author = cat[2]
 for x in range(3,len(cat)):
 	author = author + " " + cat[x]
 
-authorComillas = '"' + author + '"'
 #Leo los datos de los libros
 input_file = "../dataset/meta_Books.json" #libros
 
 df = spark.read.json(input_file)
 
 #Selecciono las columnas donde el autor es el que busco
-df = df.select('brand', 'title', func.translate(func.col("price"), "$", "").alias("Precio"))\
-		.where((df['brand'] == author) | (df['brand'] == authorComillas))
+df = df.select(col('brand').alias("Autor"), col('title').alias("Titulo"), func.translate(func.col("price"), "$", "").alias("Precio"))\
+		.where((df['brand'] == author) | df['brand'].contains(author))
 
 #Filtro los resultados segú el rango de precios seleccionado
 df = df.where(df["Precio"].between(precio1, precio2))
 
+df = df.groupby(col("Autor"),col("Titulo")).agg(avg("Precio").alias("PreciO")).orderBy("PreciO", ascending=False)
 
-df = df.groupby(col("brand"),col("Title")).agg(avg("Precio")).orderBy("avg(Precio)", ascending=False)
+df.show()
 
 df.coalesce(1).write.options(header = 'True', delimiter = ',').mode("overwrite").csv("../results/booksPerAuthorAndPrice.csv")
