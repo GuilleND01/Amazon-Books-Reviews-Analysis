@@ -4,7 +4,7 @@ from pyspark.sql.functions import avg, when, collect_list
 from pyspark.sql.functions import *
 from pyspark.sql.types import IntegerType
 import pyspark.sql.functions as func
-#import Matplotlib as plt
+import matplotlib.pyplot as plt
 import sys
 import re
 
@@ -33,8 +33,8 @@ fecha1 = int(fecha1)
 fecha2 = int(fecha2)
 
 #Leo los datos de los libros
-input_file1 = "../dataset/meta_Books.json" #libros
-input_file2 = "../dataset/Books_5.json" #reviews
+input_file1 = ".\DATASET MAS GRANDE\DATASET MAS GRANDE\meta_Books.json" #libros
+input_file2 = ".\DATASET MAS GRANDE\DATASET MAS GRANDE\Books_5.json" #reviews
 
 df = spark.read.json(input_file1)
 df2 = spark.read.json(input_file2)
@@ -75,8 +75,10 @@ df = df.withColumnRenamed("avg(Precio)","Precio")
 df = df.withColumn('Precio', col('Precio').substr(0, 4))
 
 #Filto por los años que me interesan
-#df = df.filter(df["Year"]).between(fecha1, fecha2)
+df = df.filter(df["Year"].between(fecha1, fecha2))
 
+df = df.withColumn('Precio', col('Precio').cast('float'))
+df = df.withColumn('Year', col('Year').cast('string'))
 #Ordeno por año
 df = df.orderBy("Year", ascending = True)
 
@@ -85,5 +87,21 @@ df.show()
 #df = df.filter(df["Year"]).between(fecha1, fecha2)
 
 #df.show()
+
+fig, ax = plt.subplots()
+
+# Paso a array los títulos y sus reviews
+yea = df.select(col('Year')).rdd.flatMap(lambda x: x).collect()
+rat = df.select(col('Precio')).rdd.flatMap(lambda x: x).collect()
+
+# Se pintan y unen los puntos
+barGraphic = ax.scatter(yea, rat)
+plt.plot(yea, rat)
+
+ax.set_ylabel('Overall Price')
+ax.set_title('Price evolution ' + cat[0] + ' ' + cat[1])
+
+plt.xticks(rotation=90)
+plt.savefig('priceEvolution' + cat[0] + cat[1] + '.png')
 
 df.coalesce(1).write.options(header = 'True', delimiter = ',').mode("overwrite").csv("../results/booksPriceEvolution.csv")
