@@ -41,7 +41,7 @@ for x in range(3,len(cat)):
 	author = author + " " + cat[x]
 
 #Leo los datos de los libros
-input_file = "../dataset/meta_Books.json" #libros
+input_file = "../dataset/metabooks.json" #libros
 
 df = spark.read.json(input_file)
 
