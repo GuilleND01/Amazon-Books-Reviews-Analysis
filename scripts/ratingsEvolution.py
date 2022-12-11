@@ -23,8 +23,12 @@ if ' and ' in cat:
     cat = cat.replace(' and ', ' & ')
 
 # Lectura del archivo reviews
-df1Read = spark.read.json('.\DATASET MAS GRANDE\DATASET MAS GRANDE\meta_Books.json')
-df2Read = spark.read.json('.\DATASET MAS GRANDE\DATASET MAS GRANDE\Books_5.json')
+
+input_file1 = "../dataset/reviews.json" #valoraciones
+input_file2 = "../dataset/metabooks.json" #libros
+
+df1Read = spark.read.json(input_file2)
+df2Read = spark.read.json(input_file1)
 
 df2Read = df2Read.join(df1Read, df1Read.asin == df2Read.asin, 'inner')
 df2Read = df2Read.select('reviewTime', 'category', 'overall')
