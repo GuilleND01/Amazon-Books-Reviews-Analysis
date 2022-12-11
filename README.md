@@ -105,7 +105,7 @@ $ spark.conf.set("spark.sql.shuffle.partitions",100)
 
 ![Local (1)](https://user-images.githubusercontent.com/91116613/206902103-3d0539bd-adcc-40ea-b7a0-8da472606419.png)
 
-Notamos que a mayor número de hilos menor es el tiempo y que el shuffling con 300 particiones es el mejor de los tres. Encontrar el tamaño correcto de particiones es siempre difícily requiere de muchas ejecuciones  con diferentes valores para alcanzar el tiempo óptimo.
+Notamos que a mayor número de hilos menor es el tiempo y que el shuffling con 300 particiones es el mejor de los tres. Encontrar el tamaño correcto de particiones es siempre difícil y requiere de muchas ejecuciones con diferentes valores para alcanzar el tiempo óptimo.
 
 En Maquina **n1-standard-4** ejecutando 4 hilos:
 
