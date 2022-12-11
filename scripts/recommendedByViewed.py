@@ -11,7 +11,7 @@ sc = SparkContext(conf = conf)
 spark = SparkSession(sc)
 
 libros = "../dataset/metabooks.json" #libros
-valoraciones = "../dataset/reviews_grande.json" #valoraciones
+valoraciones = "../dataset/reviews.json" #valoraciones
 
 #titulo del libro a buscar pasado por argumento
 titulo = sys.argv[1]
