@@ -87,14 +87,25 @@ Los resultados aparecerán en la carpeta /results
 ## 4. Resultados
 Se pueden encontrar algunos resultados del estudio en la carpeta [results](/results) de este repositorio, aunque en la [web](https://booksreviews.cloudaccess.host/) se explican estos con más detalle.
 ### Rendimiento
-Ejecutamos el programa bestBoksCat.py desde distintas maquinas y distintos hilos, workers y ejecutores para poder comprobar la diferencia de tiempo para su ejecución.
+La métrica usada para analizar el rendimiento será el **tiempo** de ejecución, es decir, desde que se encarga a Spark el trabajo hasta que este construye el resultado. Ejecutamos el programa _bestBooksCat.py_ desde distintas maquinas y distintos hilos, workers y ejecutores para poder comprobar la diferencia de tiempo. Se ha omitido es estas pruebas la construcción de la solución gráfica. 
 Para ello empleamos las siguientes pruebas:
 
 **En Maquina Local**:
 
-Ejecutamos en la maquina Local el programa con **4,8,12,16 hilos** y cada uno con distintas particiones **(100,200,300)** viendo así la diferencia de tiempo entre los distintos casos probados y podiendo hacernos una idea de en que ocasiones es mas óptimo.
+Ejecutamos en la maquina local el programa con **4,8,12,16 hilos** y cada uno con distintas particiones de shuffling **(100,200,300)** viendo así la diferencia de tiempo entre los distintos casos probados y pudiendo hacernos una idea de en qué ocasiones es más óptimo. Configuramos el número de hilos con el siguiente comando y metemos entre los corchetes el número de ellos.  
+
+```
+$ spark-submit --master local[] bestBooksCat.py 'Children's Books'
+```
+El shuffling se trata de un mecanismo de redistribución o repartición de los datos entre executors e incluso entre worker nodes. Este tiene lugar en las operaciones de join y todas las de agregación (sum, avg, collect_list, count, etc). Dependiendo del tamaño de los datos, será necesario aumentar o disminuir este número mediante spark.sql.shuffle.partitions. Por defecto en Spark el número es 200 y lo cambiamos en el script de esta manera:
+
+```
+$ spark.conf.set("spark.sql.shuffle.partitions",100)
+```
 
 ![Local (1)](https://user-images.githubusercontent.com/91116613/206902103-3d0539bd-adcc-40ea-b7a0-8da472606419.png)
+
+Notamos que a mayor número de hilos menor es el tiempo y que el shuffling con 300 particiones es el mejor de los tres. Encontrar el tamaño correcto de particiones es siempre difícily requiere de muchas ejecuciones  con diferentes valores para alcanzar el tiempo óptimo.
 
 En Maquina **n1-standard-4** ejecutando 4 hilos:
 
@@ -104,7 +115,7 @@ Ejecutamos el programa para 4 hilos siempre, cambiando el numero de ejecutores y
 
 En Maquina **n1-standard-4** con **2 workers especializados** en ejecución de 4 hilos:
 
-Ejecutamos el programa con 4 hilos y en este caso empleamos dos workers especializados en 4 hilos para ver la diferencia con la anterior máquina. En esta comprobamos también la mejora al aumentar el numero de ejecutores del programa. la diferencia con la anterior maquina sin workers especializados es bastante notable.
+Ejecutamos el programa con 4 hilos y en este caso empleamos dos workers especializados en 4 hilos para ver la diferencia con la anterior máquina. En esta comprobamos también la mejora al aumentar el numero de ejecutores del programa. La diferencia con la anterior maquina sin workers especializados es bastante notable.
 
 ![n1-standard-4 ( 2 c2-standard-4 workers   4 Hilos)](https://user-images.githubusercontent.com/91116613/206902111-6e444beb-67bf-4949-8249-d6693e198a66.png)
 
