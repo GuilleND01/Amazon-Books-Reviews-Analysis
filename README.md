@@ -87,12 +87,12 @@ Los resultados aparecerán en la carpeta /results
 ## 4. Resultados
 Se pueden encontrar algunos resultados del estudio en la carpeta [results](/results) de este repositorio, aunque en la [web](https://booksreviews.cloudaccess.host/) se explican estos con más detalle.
 ### Rendimiento
-La métrica usada para analizar el rendimiento será el **tiempo** de ejecución, es decir, desde que se encarga a Spark el trabajo hasta que este construye el resultado. Ejecutamos el programa _bestBooksCat.py_ desde distintas maquinas y distintos hilos, workers y ejecutores para poder comprobar la diferencia de tiempo. Se ha omitido es estas pruebas la construcción de la solución gráfica. 
+La métrica usada para analizar el rendimiento será el **tiempo** de ejecución, es decir, desde que se encarga a Spark el trabajo hasta que este construye el resultado. Ejecutamos el programa _bestBooksCat.py_ desde distintas maquinas y distintos hilos, workers y ejecutores para poder comprobar la diferencia de tiempo. Se ha omitido en estas pruebas la construcción de la solución gráfica. 
 Para ello empleamos las siguientes pruebas:
 
-**En Maquina Local**:
+**En Máquina Local**:
 
-Ejecutamos en la maquina local el programa con **4,8,12,16 hilos** y cada uno con distintas particiones de shuffling **(100,200,300)** viendo así la diferencia de tiempo entre los distintos casos probados y pudiendo hacernos una idea de en qué ocasiones es más óptimo. Configuramos el número de hilos con el siguiente comando y metemos entre los corchetes el número de ellos.  
+Ejecutamos en la máquina local el programa con **4,8,12,16 hilos** y cada uno con distintas particiones de shuffling **(100,200,300)** viendo así la diferencia de tiempo entre los distintos casos probados y pudiendo hacernos una idea de en qué ocasiones es más óptimo. Configuramos el número de hilos con el siguiente comando y metemos entre los corchetes el número de ellos.  
 
 ```
 $ spark-submit --master local[] bestBooksCat.py 'Children's Books'
@@ -107,19 +107,19 @@ $ spark.conf.set("spark.sql.shuffle.partitions",100)
 
 Notamos que a mayor número de hilos menor es el tiempo y que el shuffling con 300 particiones es el mejor de los tres. Encontrar el tamaño correcto de particiones es siempre difícil y requiere de muchas ejecuciones con diferentes valores para alcanzar el tiempo óptimo.
 
-En Maquina **n1-standard-4** ejecutando 4 hilos:
+En Máquina **n1-standard-4** ejecutando 4 hilos:
 
 Ejecutamos el programa para 4 hilos siempre, cambiando el numero de ejecutores y de workers para ver como afectan al rendimiento del programa. Viendo en los gráficos obtenidos la necesidad de controlar el numero de ejecutores y workers para obtener un mejor resultado. 
 
 ![n1-standard-4 (4 hilos)](https://user-images.githubusercontent.com/91116613/206902115-87f7763d-fbdb-43c9-8990-b161f07d9c71.png)
 
-En Maquina **n1-standard-4** con **2 workers especializados** en ejecución de 4 hilos:
+En Máquina **n1-standard-4** con **2 workers especializados** en ejecución de 4 hilos:
 
-Ejecutamos el programa con 4 hilos y en este caso empleamos dos workers especializados en 4 hilos para ver la diferencia con la anterior máquina. En esta comprobamos también la mejora al aumentar el numero de ejecutores del programa. La diferencia con la anterior maquina sin workers especializados es bastante notable.
+Ejecutamos el programa con 4 hilos y en este caso empleamos dos workers especializados en 4 hilos para ver la diferencia con la anterior máquina. En esta comprobamos también la mejora al aumentar el numero de ejecutores del programa. La diferencia con la anterior máquina sin workers especializados es bastante notable.
 
 ![n1-standard-4 ( 2 c2-standard-4 workers   4 Hilos)](https://user-images.githubusercontent.com/91116613/206902111-6e444beb-67bf-4949-8249-d6693e198a66.png)
 
-En Maquina **n1-standard-8** con 2 workers ejecutando 8 hilos:
+En Máquina **n1-standard-8** con 2 workers ejecutando 8 hilos:
 
 Ejecutamos el programa con 8 hilos y modificando el numero de ejecutores para comprobar el rendimiento al ejecutar nuetro programa donde podemos apreciar que hay una diferencia muy significativa entre tener pocos ejecutores y al aumentarlos. Llega un momento que la diferencia de rendimiento al aumentar el numero de ejecutores es bastante pequeña, pero aún asi sigue disminuyendo un poco.
 
