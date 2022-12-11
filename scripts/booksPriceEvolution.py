@@ -33,8 +33,8 @@ fecha1 = int(fecha1)
 fecha2 = int(fecha2)
 
 #Leo los datos de los libros
-input_file1 = ".\DATASET MAS GRANDE\DATASET MAS GRANDE\meta_Books.json" #libros
-input_file2 = ".\DATASET MAS GRANDE\DATASET MAS GRANDE\Books_5.json" #reviews
+input_file1 = "../dataset/reviews.json" #valoraciones
+input_file2 = "../dataset/metabooks.json" #libros
 
 df = spark.read.json(input_file1)
 df2 = spark.read.json(input_file2)
