@@ -11,7 +11,7 @@ conf = SparkConf().setMaster('local[*]').setAppName('mostRatings')
 sc = SparkContext(conf = conf)
 spark = SparkSession(sc)
 
-input_file1 = "../dataset/reviews_grande.json" #valoraciones
+input_file1 = "../dataset/reviews.json" #valoraciones
 input_file2 = "../dataset/metabooks.json" #libros
 
 dfVal = spark.read.json(input_file1)
