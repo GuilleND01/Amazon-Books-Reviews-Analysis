@@ -14,7 +14,7 @@ conf.set("spark.sql.shuffle.partitions",300)
 sc = SparkContext(conf = conf)
 spark = SparkSession(sc)
 
-input_file1 = "../dataset/reviews_grande.json" #valoraciones
+input_file1 = "../dataset/reviews.json" #valoraciones
 input_file2 = "../dataset/metabooks.json" #libros
 
 #numero de argumentos que se le pasan al programa
