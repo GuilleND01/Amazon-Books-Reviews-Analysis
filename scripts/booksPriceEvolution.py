@@ -19,15 +19,9 @@ spark = SparkSession(sc)
 ##IMPORTANTE: 
 #Ejemplo de entrada:	spark-submit .\booksPriceEvolution.py 2018 2019
 
-#numero de argumentos que se le pasan al programa
-num_args = len(sys.argv) # para lista de categorias bucle con esto para coger todas y al comprobar en el filter con todas ellas.
-cat = []
-for y in range(1,num_args):
-    cat.append(sys.argv[y])
-
 #Fecha en formato dia-mes-año
-fecha1 = cat[0]
-fecha2 = cat[1]
+fecha1 = sys.argv[1]
+fecha2 = sys.argv[2]
 
 fecha1 = int(fecha1)
 fecha2 = int(fecha2)
@@ -61,8 +55,6 @@ df = df.withColumnRenamed("avg(Precio)","Precio")
 
 df = df.withColumn('Year', col('Year').substr(0, 4).cast(IntegerType()))
 
-
-
 #quitamos las columnas null
 df = df.filter(df["Precio"].isNotNull())
 df = df.withColumn('Precio', col('Precio').substr(0, 4))
@@ -82,11 +74,7 @@ df = df.withColumn('Year', col('Year').cast('string'))
 #Ordeno por año
 df = df.orderBy("Year", ascending = True)
 
-df.show()
-
 #df = df.filter(df["Year"]).between(fecha1, fecha2)
-
-#df.show()
 
 fig, ax = plt.subplots()
 
