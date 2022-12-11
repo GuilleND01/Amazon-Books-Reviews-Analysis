@@ -88,12 +88,19 @@ Los resultados aparecerán en la carpeta /results
 Se pueden encontrar algunos resultados del estudio en la carpeta [results](/results) de este repositorio, aunque en la [web](https://booksreviews.cloudaccess.host/) se explican estos con más detalle.
 ### Rendimiento
 En Maquina Local:
+
 ![Local (1)](https://user-images.githubusercontent.com/91116613/206902103-3d0539bd-adcc-40ea-b7a0-8da472606419.png)
+
 En Maquina n1-standard-4 ejecutando 4 hilos:
+
 ![n1-standard-4 (4 hilos)](https://user-images.githubusercontent.com/91116613/206902115-87f7763d-fbdb-43c9-8990-b161f07d9c71.png)
+
 En Maquina n1-standard-4 con 2 workers especializados en ejecución de 4 hilos:
+
 ![n1-standard-4 ( 2 c2-standard-4 workers   4 Hilos)](https://user-images.githubusercontent.com/91116613/206902111-6e444beb-67bf-4949-8249-d6693e198a66.png)
+
 En Maquina n1-standard-8 con 2 workers ejecutando 8 hilos:
+
 ![n1-standard-8 (2 Workers   8 Hilos)](https://user-images.githubusercontent.com/91116613/206902118-90be79f8-865e-419f-b826-8d04048de0af.png)
 
 ## 5. Conclusiones
