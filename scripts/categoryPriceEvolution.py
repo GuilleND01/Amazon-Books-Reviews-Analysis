@@ -12,12 +12,9 @@ conf = SparkConf().setMaster('local[*]').setAppName('bookPerAuthorAndPrice')
 sc = SparkContext(conf = conf)
 spark = SparkSession(sc)
 
-'''
-	Precio de todos los libros a lo largo de un tiempo 
-'''
 
 ##IMPORTANTE: 
-#Ejemplo de entrada:	spark-submit .\booksPriceEvolution.py 2010 2018 Medicine
+#Ejemplo de entrada:	spark-submit .\categoryPriceEvolution.py 2010 2018 Medicine
 
 #Fecha en formato dia-mes-año
 fecha1 = sys.argv[1]
@@ -58,11 +55,8 @@ df = df.withColumn("Year", func.translate(func.col("Year"), " ", ""))
 df = df.withColumn("Year", df["Year"].cast(IntegerType()))
 df = df.withColumn('Year', col('Year').substr(0, 4).cast(IntegerType()))
 
-#Asumo que el año en el que sale el libro es el año que mas reviews tiene
-#calculo la moda de la fecha de la review por año y la media de sus precios
 df = df.groupby("Year").agg(func.avg("Precio"))
 df = df.withColumnRenamed("avg(Precio)","Precio")
-
 
 #quitamos las columnas null
 df = df.filter(df["Precio"].isNotNull())
