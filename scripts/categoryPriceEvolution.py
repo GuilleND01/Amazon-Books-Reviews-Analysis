@@ -96,8 +96,8 @@ years = df.select(col('Year')).rdd.flatMap(lambda x: x).collect()
 prices = df.select(col('Precio')).rdd.flatMap(lambda x: x).collect()
 
 # Se pintan y unen los puntos
-barGraphic = ax.scatter(years, rating)
-plt.plot(years, rating)
+barGraphic = ax.scatter(years, prices)
+plt.plot(years, prices)
 
 ax.set_ylabel('Overall Score')
 ax.set_title('Evolution of the category' + cat)
