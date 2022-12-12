@@ -99,8 +99,8 @@ prices = df.select(col('Precio')).rdd.flatMap(lambda x: x).collect()
 barGraphic = ax.scatter(years, prices)
 plt.plot(years, prices)
 
-ax.set_ylabel('Overall Score')
-ax.set_title('Evolution of the category' + cat)
+ax.set_ylabel('Prices Evolution')
+ax.set_title('Price evolution of the category' + cat)
 
 plt.xticks(rotation=90)
 plt.savefig('../results/' + 'PriceEvolutionOf' + cat + '.png')
