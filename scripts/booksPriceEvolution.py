@@ -87,9 +87,9 @@ barGraphic = ax.scatter(yea, rat)
 plt.plot(yea, rat)
 
 ax.set_ylabel('Overall Price')
-ax.set_title('Price evolution ' + cat[0] + ' ' + cat[1])
+ax.set_title('Price evolution ' + fecha1 + ' ' + fecha2)
 
 plt.xticks(rotation=90)
-plt.savefig('priceEvolution' + cat[0] + cat[1] + '.png')
+plt.savefig('priceEvolution' + fecha1 + fecha2 + '.png')
 
 df.coalesce(1).write.options(header = 'True', delimiter = ',').mode("overwrite").csv("../results/booksPriceEvolution.csv")

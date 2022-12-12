@@ -57,4 +57,4 @@ ax.set_ylabel('Overall Score')
 ax.set_title('Evolution of ' + cat)
 
 plt.xticks(rotation=90)
-plt.savefig(cat + '.png')
+plt.savefig('../results/' + cat + '.png')
