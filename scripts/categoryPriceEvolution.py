@@ -37,7 +37,6 @@ input_file2 = "../dataset/metabooks.json" #libros
 df = spark.read.json(input_file1)
 df2 = spark.read.json(input_file2)
 
-#Junto los dos dataframes por titulo
 df = df.join(df2, df.asin == df2.asin, how = 'inner')
 
 #Selecciono los libros, la fecha de la review de ese libro y el precio de ese libro
@@ -54,17 +53,16 @@ if df.isEmpty():
 df = df.withColumn('year', col('reviewTime').substr(6, 10))
 
 #Le quito el $ a los precios, y la coma y los espacios a los años
-df = df.select(df["title"], func.translate(func.col("price"), "$", "").alias("Precio"), func.translate(func.col("year"), ",", "").alias("Year"))
+df = df.select(df["category"], func.translate(func.col("price"), "$", "").alias("Precio"), func.translate(func.col("year"), ",", "").alias("Year"))
 df = df.withColumn("Year", func.translate(func.col("Year"), " ", ""))
 df = df.withColumn("Year", df["Year"].cast(IntegerType()))
+df = df.withColumn('Year', col('Year').substr(0, 4).cast(IntegerType()))
 
 #Asumo que el año en el que sale el libro es el año que mas reviews tiene
 #calculo la moda de la fecha de la review por año y la media de sus precios
-df = df.groupby("title").agg(func.avg("Year"), func.avg("Precio"))
-df = df.withColumnRenamed("avg(Year)","Year")
+df = df.groupby("Year").agg(func.avg("Precio"))
 df = df.withColumnRenamed("avg(Precio)","Precio")
 
-df = df.withColumn('Year', col('Year').substr(0, 4).cast(IntegerType()))
 
 #quitamos las columnas null
 df = df.filter(df["Precio"].isNotNull())
@@ -99,8 +97,8 @@ prices = df.select(col('Precio')).rdd.flatMap(lambda x: x).collect()
 barGraphic = ax.scatter(years, prices)
 plt.plot(years, prices)
 
-ax.set_ylabel('Prices Evolution')
-ax.set_title('Price evolution of the category' + cat)
+ax.set_ylabel('Price')
+ax.set_title('Evolution of the category ' + cat)
 
 plt.xticks(rotation=90)
 plt.savefig('../results/' + 'PriceEvolutionOf' + cat + '.png')
