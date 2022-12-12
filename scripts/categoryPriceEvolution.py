@@ -4,6 +4,7 @@ from pyspark.sql.functions import avg, when, collect_list
 from pyspark.sql.functions import *
 from pyspark.sql.types import IntegerType
 import pyspark.sql.functions as func
+import matplotlib.pyplot as plt
 import sys
 import re
 
@@ -84,8 +85,22 @@ df = df.withColumn('Year', col('Year').cast('string'))
 #Ordeno por año
 df = df.orderBy("Year", ascending = True)
 
-#df = df.filter(df["Year"]).between(fecha1, fecha2)
-
 df.show()
 
 df.coalesce(1).write.options(header = 'True', delimiter = ',').mode("overwrite").csv("../results/categoryPriceEvolution.csv")
+
+fig, ax = plt.subplots()
+
+# Paso a array los títulos y sus reviews
+years = df.select(col('Year')).rdd.flatMap(lambda x: x).collect()
+prices = df.select(col('Precio')).rdd.flatMap(lambda x: x).collect()
+
+# Se pintan y unen los puntos
+barGraphic = ax.scatter(years, rating)
+plt.plot(years, rating)
+
+ax.set_ylabel('Overall Score')
+ax.set_title('Evolution of the category' + cat)
+
+plt.xticks(rotation=90)
+plt.savefig('../results/' + 'PriceEvolutionOf' + cat + '.png')
